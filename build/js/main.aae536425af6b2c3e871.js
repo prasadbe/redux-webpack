@@ -627,10 +627,39 @@ module.exports = g;
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: SyntaxError: \"appId\" is read-only\n\n\u001b[0m \u001b[90m 3 | \u001b[39m    \u001b[36mswitch\u001b[39m (action\u001b[33m.\u001b[39mtype) {\n \u001b[90m 4 | \u001b[39m        \u001b[36mcase\u001b[39m \u001b[32m'INCREMENT'\u001b[39m\u001b[33m:\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 | \u001b[39m            \u001b[36mreturn\u001b[39m \u001b[33mObject\u001b[39m\u001b[33m.\u001b[39massign({}\u001b[33m,\u001b[39m state\u001b[33m,\u001b[39m { id\u001b[33m:\u001b[39m appId\u001b[33m++\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m   | \u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 6 | \u001b[39m        \u001b[36mcase\u001b[39m \u001b[32m'DECREMENT'\u001b[39m\u001b[33m:\u001b[39m\n \u001b[90m 7 | \u001b[39m            \u001b[36mreturn\u001b[39m \u001b[33mObject\u001b[39m\u001b[33m.\u001b[39massign({}\u001b[33m,\u001b[39m state\u001b[33m,\u001b[39m { id\u001b[33m:\u001b[39m appId\u001b[33m--\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 8 | \u001b[39m        \u001b[36mdefault\u001b[39m\u001b[33m:\u001b[39m\u001b[0m\n");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return increment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return doubleIncrement; });
+var appId = 0;
+var increment = function increment() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { 'id': 0 };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'INCREMENT':
+            return Object.assign({}, state, { id: appId++ });
+        case 'DECREMENT':
+            return Object.assign({}, state, { id: appId-- });
+        default:
+            return state;
+    }
+};
+
+var doubleIncrement = function doubleIncrement() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { 'id': 0 };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'INCREMENT':
+            return Object.assign({}, state, { id: appId++ });
+        case 'DECREMENT':
+            return Object.assign({}, state, { id: appId-- });
+        default:
+            return state;
+    }
+};
 
 /***/ }),
 /* 8 */
@@ -1248,21 +1277,19 @@ module.exports = function(module) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_index__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__reducers_index__);
 
 
-var reducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* combineReducers */])({ increment: __WEBPACK_IMPORTED_MODULE_1__reducers_index__["increment"], doubleIncrement: __WEBPACK_IMPORTED_MODULE_1__reducers_index__["doubleIncrement"] });
+var reducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* combineReducers */])({ increment: __WEBPACK_IMPORTED_MODULE_1__reducers_index__["a" /* increment */], doubleIncrement: __WEBPACK_IMPORTED_MODULE_1__reducers_index__["b" /* doubleIncrement */] });
 console.log(reducer);
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* createStore */])(reducer);
 console.log(store.getState());
 var render = function render() {
-    console.log(store.getState().increment.id);
     document.getElementById('content1').innerHTML = store.getState().increment.id;
     document.getElementById('content2').innerHTML = store.getState().doubleIncrement.id;
 };
+store.subscribe(render);
 document.getElementById('content1').addEventListener('click', function () {
     store.dispatch({ type: 'INCREMENT' });
-    render();
 });
 render();
 

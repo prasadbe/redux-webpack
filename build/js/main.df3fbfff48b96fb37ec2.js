@@ -639,7 +639,6 @@ var increment = function increment() {
 
     switch (action.type) {
         case 'INCREMENT':
-            console.log(appId++);
             return Object.assign({}, state, { id: appId++ });
         case 'DECREMENT':
             return Object.assign({}, state, { id: appId-- });
@@ -1289,9 +1288,9 @@ var render = function render() {
     document.getElementById('content1').innerHTML = store.getState().increment.id;
     document.getElementById('content2').innerHTML = store.getState().doubleIncrement.id;
 };
+store.dispatch(render);
 document.getElementById('content1').addEventListener('click', function () {
     store.dispatch({ type: 'INCREMENT' });
-    render();
 });
 render();
 

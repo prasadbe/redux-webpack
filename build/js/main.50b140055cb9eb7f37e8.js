@@ -1288,9 +1288,9 @@ var render = function render() {
     document.getElementById('content1').innerHTML = store.getState().increment.id;
     document.getElementById('content2').innerHTML = store.getState().doubleIncrement.id;
 };
+store.subscribe(render);
 document.getElementById('content1').addEventListener('click', function () {
     store.dispatch({ type: 'INCREMENT' });
-    render();
 });
 render();
 
